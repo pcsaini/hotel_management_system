@@ -24,7 +24,7 @@ if (isset($_GET['room_id'])){
 
     <div class="row">
         <div class="col-lg-12">
-            <form role="form">
+            <form role="form" id="booking">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">Room Information:</div>
@@ -46,24 +46,25 @@ if (isset($_GET['room_id'])){
 
                             <div class="form-group col-lg-6">
                                 <label>Room No</label>
-                                <select class="form-control" id="room_no">
+                                <select class="form-control" id="room_no" onchange="fetch_price(this.value)">
 
                                 </select>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>Check In Date</label>
-                                <input type="date" class="form-control" placeholder="DD/MM/YYYY" id="check_in_date">
+                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" id="check_in_date">
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>Check Out Date</label>
-                                <input type="date" class="form-control" placeholder="DD/MM/YYYY" id="check_out_date">
+                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" id="check_out_date">
                             </div>
 
                             <div class="col-lg-12">
-                                <h5>Total Days : 2</h5>
-                                <h5>Total Amount : 12000/-</h5>
+                                <h4 style="font-weight: bold">Total Days : <span id="staying_day">0</span> Days</h4>
+                                <h4 style="font-weight: bold">Price: <span id="price">0</span> /-</h4>
+                                <h4 style="font-weight: bold">Total Amount : <span id="total_price">0</span> /-</h4>
                             </div>
                         </div>
                     </div>
@@ -74,9 +75,20 @@ if (isset($_GET['room_id'])){
                                 <label>First Name</label>
                                 <input class="form-control" placeholder="First Name" id="first_name">
                             </div>
+
                             <div class="form-group col-lg-6">
                                 <label>Last Name</label>
                                 <input class="form-control" placeholder="Last Name" id="last_name">
+                            </div>
+
+                            <div class="form-group col-lg-6">
+                                <label>Contact No</label>
+                                <input type="number" class="form-control" placeholder="Contact No" id="contact_no">
+                            </div>
+
+                            <div class="form-group col-lg-6">
+                                <label>Email Address</label>
+                                <input type="email" class="form-control" placeholder="Email Address" id="email">
                             </div>
 
                             <div class="form-group col-lg-6">
@@ -105,8 +117,7 @@ if (isset($_GET['room_id'])){
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
-                    <button type="reset" class="btn btn-lg btn-danger">Reset</button>
+                    <button type="submit" class="btn btn-lg btn-primary pull-right">Submit</button>
                 </div>
             </form>
         </div>
