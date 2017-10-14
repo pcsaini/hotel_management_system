@@ -90,3 +90,16 @@ if (isset($_POST['room_type'])) {
         echo "<option>No Available</option>";
     }
 }
+
+if (isset($_POST['room_price'])) {
+    $room_id = $_POST['room_id'];
+
+    $sql = "SELECT * FROM room NATURAL JOIN room_type WHERE room_id = '$room_id'";
+    $result = mysqli_query($connection, $sql);
+    if ($result) {
+        $room = mysqli_fetch_assoc($result);
+        echo $room['price'];
+    } else {
+        echo "0";
+    }
+}

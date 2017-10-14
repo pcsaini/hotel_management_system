@@ -152,7 +152,7 @@
                                     <input class="form-control" placeholder="Room No" id="edit_room_no">
                                 </div>
                                 <input type="hidden" id="edit_room_id">
-                                <button class="btn btn-success pull-right">Add Room</button>
+                                <button class="btn btn-success pull-right">Edit Room</button>
                             </form>
                         </div>
                     </div>
