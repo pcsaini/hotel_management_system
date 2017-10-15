@@ -82,9 +82,8 @@ if (isset($_POST['room_type'])) {
     $result = mysqli_query($connection, $sql);
     if ($result) {
         echo "<option selected disabled>Select Room Type</option>";
-        while($room = mysqli_fetch_assoc($result))
-        {
-            echo "<option value='".$room['room_id']."'>".$room['room_no']."</option>";
+        while ($room = mysqli_fetch_assoc($result)) {
+            echo "<option value='" . $room['room_id'] . "'>" . $room['room_no'] . "</option>";
         }
     } else {
         echo "<option>No Available</option>";
@@ -102,4 +101,68 @@ if (isset($_POST['room_price'])) {
     } else {
         echo "0";
     }
+}
+
+if (isset($_POST['booking'])) {
+    $room_id = $_POST['room_id'];
+    $check_in = strtotime($_POST['check_in']);
+    $check_out = strtotime($_POST['check_out']);
+    $total_price = $_POST['total_price'];
+    $name = $_POST['name'];
+    $contact_no = $_POST['contact_no'];
+    $email = $_POST['email'];
+    $id_card_id = $_POST['id_card_id'];
+    $id_card_no = $_POST['id_card_no'];
+    $address = $_POST['address'];
+
+    $customer_sql = "INSERT INTO customer (customer_name,contact_no,email,id_card_type_id,id_card_no,address) VALUES ('$name','$contact_no','$email','$id_card_id','$id_card_no','$address')";
+    $customer_result = mysqli_query($connection,$customer_sql);
+
+    if ($customer_result){
+        $customer_id = mysqli_insert_id($connection);
+        $booking_sql = "INSERT INTO booking (customer_id,room_id,check_in,check_out,total_price) VALUES ('$customer_id','$room_id','$check_in','$check_out','$total_price')";
+        $booking_result = mysqli_query($connection,$booking_sql);
+        if ($booking_result){
+            $room_stats_sql = "UPDATE room SET status = '1' WHERE room_id = '$room_id'";
+            if (mysqli_query($connection,$room_stats_sql)){
+                $response['done'] = true;
+                $response['data'] = 'Successfully Booking';
+            }else{
+                $response['done'] = false;
+                $response['data'] = "DataBase Error in status change";
+            }
+        }else{
+            $response['done'] = false;
+            $response['data'] = "DataBase Error booking";
+        }
+    }else{
+        $response['done'] = false;
+        $response['data'] = "DataBase Error add customer";
+    }
+
+    echo json_encode($response);
+}
+
+if (isset($_POST['booked_room'])) {
+    $room_id = $_POST['room_id'];
+
+    $sql = "SELECT * FROM room NATURAL JOIN room_type NATURAL JOIN booking NATURAL JOIN customer WHERE room_id = '$room_id'";
+    $result = mysqli_query($connection, $sql);
+    if ($result) {
+        $room = mysqli_fetch_assoc($result);
+        $response['done'] = true;
+        $response['booking_id'] = $room['booking_id'];
+        $response['name'] = $room['customer_name'];
+        $response['room_no'] = $room['room_no'];
+        $response['room_type'] = $room['room_type'];
+        $response['check_in'] = date('M j, Y',$room['check_in']);
+        $response['check_out'] = date('M j, Y',$room['check_out']);
+        $response['total_price'] = $room['total_price'];
+        $response['remaining_price'] = $room['remaining_price'];
+    } else {
+        $response['done'] = false;
+        $response['data'] = "DataBase Error";
+    }
+
+    echo json_encode($response);
 }

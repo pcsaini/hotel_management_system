@@ -23,6 +23,7 @@ $(document).ready(function () {
 var nowTemp = new Date();
 var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 var checkin = $('#check_in_date').fdatepicker({
+    format: 'mm-dd-yyyy',
     onRender: function (date) {
         return date.valueOf() < now.valueOf() ? 'disabled' : '';
     }
@@ -36,52 +37,18 @@ var checkin = $('#check_in_date').fdatepicker({
     $('#check_out_date')[0].focus();
 }).data('datepicker');
 var checkout = $('#check_out_date').fdatepicker({
+    format: 'mm-dd-yyyy',
     onRender: function (date) {
         return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
     }
 }).on('changeDate', function (ev) {
     checkout.hide();
-    var totalDays = (checkout.date - checkin.date)/86400000;
+    var totalDays = Math.floor((checkout.date - checkin.date)/86400000);
     var price = document.getElementById('price').innerHTML;
     var total_price = (totalDays+1)*(price);
     $('#staying_day').html(totalDays+1);
     $('#total_price').html(total_price);
 }).data('datepicker');
-
-
-
-
-/*
-$('#check_in_date').datepicker({
-    format: "dd/mm/yyyy",
-    startDate: "today",
-    autoclose: true,
-    todayHighlight: true,
-    on: function (selectedDate) {
-        console.log("date");
-        $('#check_out_date').removeAttr('disabled');
-        console.log(selectedDate);
-        $('#check_out_date').datepicker({
-            format: "dd/mm/yyyy",
-            startDate: selectedDate,
-            autoclose: true,
-            todayHighlight: true
-        });
-    }
-});
-
-function checkOutDate(val)
-{
-    $('#check_out_date').removeAttr('disabled');
-    console.log(val);
-    $('#check_out_date').datepicker({
-        format: "dd/mm/yyyy",
-        startDate: val,
-        autoclose: true,
-        todayHighlight: true
-    });
-}
-*/
 
 
 
