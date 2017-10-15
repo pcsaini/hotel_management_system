@@ -46,15 +46,36 @@
                                     <td>
                                         <?php
                                             if ($rooms['status'] == 0){
-                                                echo '<a href="index.php?reservation&room_id='.$rooms['room_id'].'" class="btn btn-success">Book Room</a></td>';
+                                                echo '<a href="index.php?reservation&room_id='.$rooms['room_id'].'&room_type_id='.$rooms['room_type_id'].'" class="btn btn-success">Book Room</a>';
                                             }else{
-                                                echo '<a href="#" class="btn btn-danger">Booked</a></td>';
+                                                echo '<a href="#" class="btn btn-danger">Booked</a>';
                                             }
                                         ?>
 
 
-                                    <td>-</td>
-                                    <td>-</td>
+                                    <td>
+                                        <?php
+                                        if ($rooms['status'] == 1 && $rooms['check_in_status'] == 0){
+                                            echo '<button class="btn btn-success" id="checkInRoom"  data-id="'.$rooms['room_id'].'">Check In</button>';
+                                        }
+                                        elseif($rooms['status'] == 0){
+                                            echo '-';
+                                        }
+                                        else{
+                                            echo '<a href="#" class="btn btn-danger">12/10/2017</a>';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        if ($rooms['status'] == 1 && $rooms['check_in_status'] == 1){
+                                            echo '<button class="btn btn-success" id="checkOutRoom" data-id="'.$rooms['room_id'].'">Check Out</button>';
+                                        }
+                                        elseif($rooms['status'] == 0){
+                                            echo '-';
+                                        }
+                                        ?>
+                                    </td>
                                     <td>
                                         <button data-toggle="modal" data-target="#editRoom" data-id="<?php echo $rooms['room_id']; ?>" id="roomEdit" class="btn btn-info"><i class="fa fa-pencil"></i></button>
                                         <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
@@ -158,6 +179,136 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Check In Modal -->
+    <div id="checkIn" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Check In Room</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Detail</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Customer Name</td>
+                                    <td id="getCustomerName"></td>
+                                </tr>
+                                <tr>
+                                    <td>Room Type</td>
+                                    <td id="getRoomType"></td>
+                                </tr>
+                                <tr>
+                                    <td>Room No</td>
+                                    <td id="getRoomNo"></td>
+                                </tr>
+                                <tr>
+                                    <td>Check In</td>
+                                    <td id="getCheckIn"></td>
+                                </tr>
+                                <tr>
+                                    <td>Check Out</td>
+                                    <td id="getCheckOut"></td>
+                                </tr>
+                                <tr>
+                                    <td>Total Price</td>
+                                    <td id="getTotalPrice"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <form role="form" id="advancePayment">
+                                <div class="form-group col-lg-12">
+                                    <label>Advance Payment</label>
+                                    <input type="number" class="form-control" id="advance_payment" placeholder="Advance Payment">
+                                </div>
+                                <input type="hidden" id="getBookingId">
+                                <button type="submit" class="btn btn-primary pull-right">Payment & Check In</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Check Out Modal-->
+    <div id="checkOut" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Check Out Room</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Detail</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Customer Name</td>
+                                    <td id="getCustomerName_n"></td>
+                                </tr>
+                                <tr>
+                                    <td>Room Type</td>
+                                    <td id="getRoomType_n"></td>
+                                </tr>
+                                <tr>
+                                    <td>Room No</td>
+                                    <td id="getRoomNo_n"></td>
+                                </tr>
+                                <tr>
+                                    <td>Check In</td>
+                                    <td id="getCheckIn_n"></td>
+                                </tr>
+                                <tr>
+                                    <td>Check Out</td>
+                                    <td id="getCheckOut_n"></td>
+                                </tr>
+                                <tr>
+                                    <td>Total Amount</td>
+                                    <td id="getTotalPrice_n"></td>
+                                </tr>
+                                <tr>
+                                    <td>Remaining Amount</td>
+                                    <td id="getRemainingPrice_n"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <form role="form" id="advancePayment">
+                                <div class="form-group col-lg-12">
+                                    <label>Remaining Payment</label>
+                                    <input type="text" class="form-control" id="advancePrice" placeholder="Remaining Payment">
+                                </div>
+                                <input type="hidden" id="getBookingId_n">
+                                <button type="submit" class="btn btn-primary pull-right">Payment & Checkout</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
