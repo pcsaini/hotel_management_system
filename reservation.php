@@ -35,6 +35,7 @@ if (isset($_GET['room_id'])){
                 <div class="col-lg-12">
                     <?php
                     if (isset($_GET['room_id'])){?>
+
                         <div class="panel panel-default">
                             <div class="panel-heading">Room Information:
                                 <a class="btn btn-info pull-right" href="index.php?room_mang">Replan Booking</a>

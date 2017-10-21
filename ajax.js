@@ -257,3 +257,60 @@ $('#advancePayment').submit(function () {
 
     return false;
 });
+
+
+///vishal code
+
+$('#add_employee').submit(function () {
+
+    var staff_type = $('#staff_type').val();
+    var shift = $('#shift').val();
+    var first_name = $('#first_name').val();
+    var last_name = $('#last_name').val();
+    var contact_no = $('#contact_no').val();
+    var id_card_id = $('#id_card_id').val();
+    var id_card_no = $('#id_card_no').val();
+    var joining_date = $('#joining_date').val();
+    var address = $('#address').val();
+    var salary =$('#salary').val();
+
+
+    $.ajax({
+        type: 'post',
+        url: 'ajax.php',
+        dataType: 'JSON',
+        data: {
+            staff_type:staff_type,
+            shift:shift,
+            first_name:first_name,
+            last_name:last_name,
+            contact_no:contact_no,
+            id_card_id:id_card_id,
+            id_card_no:id_card_no,
+            joining_date:joining_date,
+            address:address,
+            salary:salary,
+            add_employee:'',
+
+        },
+        success: function (response) {
+            alert("Employee Added Successfully");
+           /* if (response.done == true) {
+                $('#getCustomerName').html(first_name+' '+last_name);
+                $('#getRoomType').html(room_type);
+                $('#getRoomNo').html(room_no);
+                $('#getCheckIn').html(check_in_date);
+                $('#getCheckOut').html(check_out_date);
+                $('#getTotalPrice').html(total_price);
+                $('#getPaymentStaus').html("Not Done");
+                $('#bookingConfirm').modal('show');
+                document.getElementById("booking").reset();
+            } else {
+                $('.response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
+            }*/
+
+        }
+    });
+
+    return false;
+});

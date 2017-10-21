@@ -166,3 +166,54 @@ if (isset($_POST['booked_room'])) {
 
     echo json_encode($response);
 }
+//vishal code
+if (isset($_POST['add_employee'])) {
+
+    $staff_type = $_POST['staff_type'];
+    $shift = $_POST['shift'];
+    $first_name = $_POST['first_name'];
+    //echo $shift;
+    $last_name = $_POST['last_name'];
+    $contact_no = $_POST['contact_no'];
+
+    $id_card_id = $_POST['id_card_id'];
+    $id_card_no = $_POST['id_card_no'];
+    $address = $_POST['address'];
+
+    $joining_date = strtotime($_POST['joining_date']);
+    $salary = $_POST['salary'];
+
+    $customer_sql = "INSERT INTO staff (emp_name,staff_type_id,shift_id,id_card_type,id_card_no,address,joining_date,salary) VALUES ('$first_name.' '.$last_name','$staff_type','$shift','$id_card_id','$id_card_no','$address','$joining_date','$salary')";
+    $customer_result = mysqli_query($connection,$customer_sql);
+    if ($customer_result){
+                $response['done'] = true;
+                $response['data'] = 'Successfully Booking';
+            }else{
+                $response['done'] = false;
+                $response['data'] = "DataBase Error in status change";
+            }
+    //echo $customer_sql;
+//    if ($customer_result){
+//        $customer_id = mysqli_insert_id($connection);
+//        $booking_sql = "INSERT INTO booking (customer_id,room_id,check_in,check_out,total_price) VALUES ('$customer_id','$room_id','$check_in','$check_out','$total_price')";
+//        $booking_result = mysqli_query($connection,$booking_sql);
+//        if ($booking_result){
+//            $room_stats_sql = "UPDATE room SET status = '1' WHERE room_id = '$room_id'";
+//            if (mysqli_query($connection,$room_stats_sql)){
+//                $response['done'] = true;
+//                $response['data'] = 'Successfully Booking';
+//            }else{
+//                $response['done'] = false;
+//                $response['data'] = "DataBase Error in status change";
+//            }
+//        }else{
+//            $response['done'] = false;
+//            $response['data'] = "DataBase Error booking";
+//        }
+//    }else{
+//        $response['done'] = false;
+//        $response['data'] = "DataBase Error add customer";
+//    }
+//
+    echo json_encode($response);
+}
