@@ -34,4 +34,16 @@ WHERE emp_id=$emp_id ";
 
 
 }
+
+if (isset($_GET['empid'])!="")
+{
+   $emp_id=$_GET['empid'];
+    $deleteQuery = "DELETE FROM staff WHERE emp_id=$emp_id";
+    if (mysqli_query($connection, $deleteQuery)) {
+        header('Location: index.php?staff_mang');
+    } else {
+        echo "Error updating record: " . mysqli_error($connection);
+    }
+}
+
 ?>
