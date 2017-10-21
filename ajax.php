@@ -172,6 +172,7 @@ if (isset($_POST['add_employee'])) {
     $staff_type = $_POST['staff_type'];
     $shift = $_POST['shift'];
     $first_name = $_POST['first_name'];
+    $space = " ";
     //echo $shift;
     $last_name = $_POST['last_name'];
     $contact_no = $_POST['contact_no'];
@@ -181,9 +182,11 @@ if (isset($_POST['add_employee'])) {
     $address = $_POST['address'];
 
     $joining_date = strtotime($_POST['joining_date']);
+
     $salary = $_POST['salary'];
 
-    $customer_sql = "INSERT INTO staff (emp_name,staff_type_id,shift_id,id_card_type,id_card_no,address,joining_date,salary) VALUES ('$first_name.' '.$last_name','$staff_type','$shift','$id_card_id','$id_card_no','$address','$joining_date','$salary')";
+    $customer_sql = "INSERT INTO staff (emp_name,staff_type_id,shift_id,id_card_type,id_card_no,address,contact_no,joining_date,salary) VALUES ('$first_name $space $last_name','$staff_type','$shift','$id_card_id','$id_card_no','$address','$contact_no','$joining_date','$salary')";
+   //echo $customer_sql;
     $customer_result = mysqli_query($connection,$customer_sql);
     if ($customer_result){
                 $response['done'] = true;
