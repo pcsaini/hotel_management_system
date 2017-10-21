@@ -53,7 +53,7 @@
                                 <td>
 
                                     <button data-toggle="modal" data-target="#empDetail<?php echo $staff['emp_id']; ?>" data-id="<?php echo $staff['emp_id']; ?>" id="editEmp" class="btn btn-info"><i class="fa fa-pencil"></i></button>
-                                    <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                    <a href='#' class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                 </td>
                         </tr>
 
