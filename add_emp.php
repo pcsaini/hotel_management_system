@@ -13,7 +13,7 @@
             <h1 class="page-header">Add Employee</h1>
         </div>
     </div><!--/.row-->
-
+    <form role="form" id="add_employee">
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="form-group col-lg-6">
                                 <label>Staff</label>
-                                <select class="form-control" id="room_type">
+                                <select class="form-control" id="staff_type">
                                     <option selected disabled>Select Staff Type</option>
                                     <?php
                                     $query = "SELECT * FROM staff_type";
@@ -39,14 +39,14 @@
 
                             <div class="form-group col-lg-6">
                                 <label>Shift</label>
-                                <select class="form-control" id="room_no">
+                                <select class="form-control" id="shift">
                                     <option selected disabled>Select Staff Type</option>
                                     <?php
                                     $query = "SELECT * FROM shift";
                                     $result = mysqli_query($connection, $query);
                                     if (mysqli_num_rows($result) > 0) {
                                         while ($shift = mysqli_fetch_assoc($result)) {
-                                            echo '<option value="' . $shift['$shift_id'] . '">' . $shift['shift'] . ' - ' . $shift['shift_timing'] . '</option>';
+                                            echo '<option value="' . $shift['shift_id'] . '">' . $shift['shift'] . ' - ' . $shift['shift_timing'] . '</option>';
                                         }
                                     }
                                     ?>
@@ -83,16 +83,27 @@
                                 <label>ID Card No</label>
                                 <input class="form-control" placeholder="ID Card No" id="id_card_no">
                             </div>
+                            <div class="form-group col-lg-6">
+                                <label>Contact Number</label>
+                                <input type="date" class="form-control" placeholder="Contact Number" id="contact_no">
+                            </div>
+
+                            <div class="form-group col-lg-6">
+                                <label>Address</label>
+                                <input type="text" class="form-control" placeholder="address" id="address">
+                            </div>
 
                             <div class="form-group col-lg-6">
                                 <label>Joining Date</label>
-                                <input type="date" class="form-control" placeholder="DD/MM/YYYY" id="check_in_date">
+                                <input type="date" class="form-control" placeholder="DD/MM/YYYY" id="joining_date">
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>Salary</label>
-                                <input type="number" class="form-control" placeholder="Salary" id="Salary">
+                                <input type="number" class="form-control" placeholder="Salary" id="salary">
                             </div>
+
+
                         </div>
 
                         <button type="submit" class="btn btn-lg btn-primary">Submit</button>
@@ -104,6 +115,7 @@
 
 
     </div>
+    </form>
 
     <div class="row">
         <div class="col-sm-12">

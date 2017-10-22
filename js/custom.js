@@ -52,3 +52,20 @@ var checkout = $('#check_out_date').fdatepicker({
 
 
 
+var joining_date = $('#joining_date').fdatepicker({
+    format: 'mm-dd-yyyy',
+    onRender: function (date) {
+        return date.valueOf() < now.valueOf() ? 'disabled' : '';
+    }
+}).on('changeDate', function (ev) {
+    if (ev.date.valueOf() > checkout.date.valueOf()) {
+        var newDate = new Date(ev.date)
+        newDate.setDate(newDate.getDate() + 1);
+        checkout.update(newDate);
+    }
+    checkin.hide();
+    $('#check_out_date')[0].focus();
+}).data('datepicker');
+
+
+
