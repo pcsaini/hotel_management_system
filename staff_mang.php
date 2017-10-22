@@ -34,162 +34,36 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <?php
+                        //$staff_query = "SELECT * FROM staff  JOIN staff_type JOIN shift ON staff.staff_type_id =staff_type.staff_type_id ON shift.";
+                        $staff_query = "SELECT * FROM staff  NATURAL JOIN staff_type NATURAL JOIN shift";
+                        $staff_result = mysqli_query($connection, $staff_query);
+
+                        if(mysqli_num_rows($staff_result) > 0) {
+                            while ($staff = mysqli_fetch_assoc($staff_result)) { ?>
                         <tr>
-                            <td>1</td>
-                            <td>Ghyan Sagar</td>
-                            <td>Cleaning</td>
-                            <td>Day - 10:00 AM - 4:00 PM</td>
-                            <td>10/07/2017</td>
-                            <td>10,000/-</td>
-                            <td>
-                                <button data-toggle="modal" data-target="#empDetail" data-id="1" id="viewEmp" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
+
+                                <td><?php  echo $staff['emp_id']; ?></td>
+                                <td><?php  echo $staff['emp_name']; ?></td>
+                                <td><?php  echo $staff['staff_type']; ?></td>
+                                <td><?php  echo $staff['shift'] .' - ' .$staff['shift_timing']; ?></td>
+                                <td><?php  echo $staff['joining_date']; ?></td>
+                                <td><?php  echo $staff['salary']; ?></td>
+
+                                <td>
+
+                                    <button data-toggle="modal" data-target="#empDetail<?php echo $staff['emp_id']; ?>" data-id="<?php echo $staff['emp_id']; ?>" id="editEmp" class="btn btn-info"><i class="fa fa-pencil"></i></button>
+                                    <a href='functionmis.php?empid=<?php echo $staff['emp_id']; ?>' class="btn btn-danger" onclick="return confirm('Are you Sure?')"><i class="fa fa-trash"></i></a>
+                                </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Xyxz Singh</td>
-                            <td>Cleaning</td>
-                            <td>Day - 10:00 AM - 4:00 PM</td>
-                            <td>10/07/2017</td>
-                            <td>10,000/-</td>
-                            <td>
-                                <button data-toggle="modal" data-target="#empDetail" data-id="1" id="viewEmp" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Ajit Kumar Jain</td>
-                            <td>Manager</td>
-                            <td>Day - 10:00 AM - 4:00 PM</td>
-                            <td>10/07/2017</td>
-                            <td>10,000/-</td>
-                            <td>
-                                <button data-toggle="modal" data-target="#empDetail" data-id="1" id="viewEmp" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Ghyan Sagar</td>
-                            <td>Cleaning</td>
-                            <td>Day - 10:00 AM - 4:00 PM</td>
-                            <td>10/07/2017</td>
-                            <td>10,000/-</td>
-                            <td>
-                                <button data-toggle="modal" data-target="#empDetail" data-id="1" id="viewEmp" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Xyxz Singh</td>
-                            <td>Cleaning</td>
-                            <td>Day - 10:00 AM - 4:00 PM</td>
-                            <td>10/07/2017</td>
-                            <td>10,000/-</td>
-                            <td>
-                                <button data-toggle="modal" data-target="#empDetail" data-id="1" id="viewEmp" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Ajit Kumar Jain</td>
-                            <td>Manager</td>
-                            <td>Day - 10:00 AM - 4:00 PM</td>
-                            <td>10/07/2017</td>
-                            <td>10,000/-</td>
-                            <td>
-                                <button data-toggle="modal" data-target="#empDetail" data-id="1" id="viewEmp" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Ghyan Sagar</td>
-                            <td>Cleaning</td>
-                            <td>Day - 10:00 AM - 4:00 PM</td>
-                            <td>10/07/2017</td>
-                            <td>10,000/-</td>
-                            <td>
-                                <button data-toggle="modal" data-target="#empDetail" data-id="1" id="viewEmp" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Xyxz Singh</td>
-                            <td>Cleaning</td>
-                            <td>Day - 10:00 AM - 4:00 PM</td>
-                            <td>10/07/2017</td>
-                            <td>10,000/-</td>
-                            <td>
-                                <button data-toggle="modal" data-target="#empDetail" data-id="1" id="viewEmp" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Ajit Kumar Jain</td>
-                            <td>Manager</td>
-                            <td>Day - 10:00 AM - 4:00 PM</td>
-                            <td>10/07/2017</td>
-                            <td>10,000/-</td>
-                            <td>
-                                <button data-toggle="modal" data-target="#empDetail" data-id="1" id="viewEmp" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Ghyan Sagar</td>
-                            <td>Cleaning</td>
-                            <td>Day - 10:00 AM - 4:00 PM</td>
-                            <td>10/07/2017</td>
-                            <td>10,000/-</td>
-                            <td>
-                                <button data-toggle="modal" data-target="#empDetail" data-id="1" id="viewEmp" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Xyxz Singh</td>
-                            <td>Cleaning</td>
-                            <td>Day - 10:00 AM - 4:00 PM</td>
-                            <td>10/07/2017</td>
-                            <td>10,000/-</td>
-                            <td>
-                                <button data-toggle="modal" data-target="#empDetail" data-id="1" id="viewEmp" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Ajit Kumar Jain</td>
-                            <td>Manager</td>
-                            <td>Day - 10:00 AM - 4:00 PM</td>
-                            <td>10/07/2017</td>
-                            <td>10,000/-</td>
-                            <td>
-                                <button data-toggle="modal" data-target="#empDetail" data-id="1" id="viewEmp" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                                <a href="#" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
+
+
+                                <?php
+                            }
+                        }
+                        ?>
+
+
                         </tbody>
                     </table>
                 </div>
@@ -205,8 +79,18 @@
 
 </div>    <!--/.main-->
 
+<?php
+//$staff_query = "SELECT * FROM staff  JOIN staff_type JOIN shift ON staff.staff_type_id =staff_type.staff_type_id ON shift.";
+$staff_query = "SELECT * FROM staff  NATURAL JOIN staff_type NATURAL JOIN shift";
+$staff_result = mysqli_query($connection, $staff_query);
+
+if(mysqli_num_rows($staff_result) > 0) {
+while ($staffGlobal = mysqli_fetch_assoc($staff_result)) {
+    $fullname= explode(" ",$staffGlobal['emp_name']);
+    ?>
+
 <!-- Employee Detail-->
-<div id="empDetail" class="modal fade" role="dialog">
+<div id="empDetail<?php echo $staffGlobal['emp_id']; ?>" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -216,49 +100,120 @@
                 <h4 class="modal-title">Employee Detail</h4>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <table class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%" id="rooms">
-                            <thead>
-                            <tr>
-                                <th>Action</th>
-                                <th>Detail</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Name</td>
-                                <td>Ghyan Sagar</td>
-                            </tr>
-                            <tr>
-                                <td>Staff</td>
-                                <td>Cleaning</td>
-                            </tr>
-                            <tr>
-                                <td>Shift</td>
-                                <td>Day</td>
-                            </tr>
-                            <tr>
-                                <td>ID Card Type</td>
-                                <td>Voater ID</td>
-                            </tr>
-                            <tr>
-                                <td>ID Card No</td>
-                                <td>1010101010</td>
-                            </tr>
-                            <tr>
-                                <td>Salary</td>
-                                <td>1000000</td>
-                            </tr>
 
-                            </tbody>
-                        </table>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Employee Detail:</div>
+                                <div class="panel-body">
+                                    <form  action="functionmis.php" method="post">
+                                        <div class="row">
+                                            <div class="form-group col-lg-6">
+                                                <label>Staff</label>
+                                                <select class="form-control" id="staff_type" name="staff_type_id">
+                                                    <option selected disabled>Select Staff Type</option>
+                                                    <?php
+                                                    $query = "SELECT * FROM staff_type";
+                                                    $result = mysqli_query($connection, $query);
+                                                    if (mysqli_num_rows($result) > 0) {
+                                                        while ($staff = mysqli_fetch_assoc($result)) {
+                                                          //  echo '<option value=" ' . $staff['staff_type_id'] . ' "  selected  >' . $staff['staff_type'] . '</option>';
+                                                            echo '<option value="'.$staff['staff_type_id'].'" '.(($staff['staff_type_id']==$staffGlobal['staff_type_id'])?'selected="selected"':"").'>'.$staff['staff_type'] .'</option>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-lg-6">
+                                                <label>Shift</label>
+                                                <select class="form-control" id="shift" name="shift_id">
+                                                    <option selected disabled>Select Staff Type</option>
+                                                    <?php
+                                                    $query = "SELECT * FROM shift";
+                                                    $result = mysqli_query($connection, $query);
+                                                    if (mysqli_num_rows($result) > 0) {
+                                                        while ($shift = mysqli_fetch_assoc($result)) {
+                                                           // echo '<option value="' . $shift['shift_id'] . '">' . $shift['shift'] . ' - ' . $shift['shift_timing'] . '</option>';
+                                                            echo '<option value="'.$shift['shift_id'].'" '.(($shift['shift_id']==$staffGlobal['shift_id'])?'selected="selected"':"").'>'.$shift['shift_timing'] .'</option>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <input type="hidden" value="<?php echo $staffGlobal['emp_id']; ?>"id="emp_id" name="emp_id">
+
+                                            <div class="form-group col-lg-6">
+                                                <label>First Name</label>
+                                                <input type="text" value="<?php echo $fullname[0]; ?>" class="form-control" placeholder="First Name" id="first_name" name="first_name">
+                                            </div>
+
+                                            <div class="form-group col-lg-6">
+                                                <label>Last Name</label>
+                                                <input type="text" value="<?php echo $fullname[1]; ?>" class="form-control" placeholder="Last Name" id="last_name"name="last_name">
+                                            </div>
+
+                                            <div class="form-group col-lg-6">
+                                                <label>ID Card Type</label>
+                                                <select class="form-control" id="id_card_id" name="id_card_type">
+                                                    <option selected disabled>Select ID Card Type</option>
+                                                    <?php
+                                                    $query = "SELECT * FROM id_card_type";
+                                                    $result = mysqli_query($connection, $query);
+
+                                                    if (mysqli_num_rows($result) > 0) {
+                                                        while ($id_card_type = mysqli_fetch_assoc($result)) {
+                                                          //  echo '<option value="' . $id_card_type['id_card_type_id'] . '">' . $id_card_type['id_card_type'] . '</option>';
+                                                            echo '<option  value="'.$id_card_type['id_card_type_id'].'" '.(($id_card_type['id_card_type_id']==$staffGlobal['id_card_type'])?'selected="selected"':"").'>'.$id_card_type['id_card_type'] .'</option>';
+                                                        }
+                                                    }
+
+                                                    ?>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-lg-6">
+                                                <label>ID Card No</label>
+                                                <input class="form-control" placeholder="ID Card No" id="id_card_no" value="<?php echo $staffGlobal['id_card_no']; ?>" name="id_card_no">
+                                            </div>
+                                            <div class="form-group col-lg-6">
+                                                <label>Contact Number</label>
+                                                <input type="date" class="form-control" placeholder="Contact Number" id="contact_no" value="<?php echo $staffGlobal['contact_no']; ?>" name="contact_no">
+                                            </div>
+
+                                            <div class="form-group col-lg-6">
+                                                <label>Address</label>
+                                                <input type="text" class="form-control" placeholder="address" id="address" value="<?php echo $staffGlobal['address']; ?>" name="address">
+                                            </div>
+
+                                            <div class="form-group col-lg-6">
+                                                <label>Joining Date</label>
+                                                <input type="date" class="form-control joining_date" placeholder="DD/MM/YYYY" id="joining_date" value="<?php echo $staffGlobal['joining_date']; ?>" name="joining_date">
+                                            </div>
+
+                                            <div class="form-group col-lg-6">
+                                                <label>Salary</label>
+                                                <input type="number" class="form-control" placeholder="Salary" id="salary" value="<?php echo $staffGlobal['salary']; ?>" name="salary">
+                                            </div>
+
+
+                                        </div>
+
+                                        <input type="submit" class="btn btn-lg btn-primary" name="submit" value="submit"></input>
+                                        <button type="reset" class="btn btn-lg btn-danger">Reset</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
-                </div>
+
             </div>
         </div>
 
     </div>
 </div>
-
-
+    <?php
+}
+}

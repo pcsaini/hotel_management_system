@@ -166,3 +166,120 @@ if (isset($_POST['booked_room'])) {
 
     echo json_encode($response);
 }
+//vishal code
+if (isset($_POST['add_employee'])) {
+
+    $staff_type = $_POST['staff_type'];
+    $shift = $_POST['shift'];
+    $first_name = $_POST['first_name'];
+    $space = " ";
+    //echo $shift;
+    $last_name = $_POST['last_name'];
+    $contact_no = $_POST['contact_no'];
+
+    $id_card_id = $_POST['id_card_id'];
+    $id_card_no = $_POST['id_card_no'];
+    $address = $_POST['address'];
+
+    $joining_date = strtotime($_POST['joining_date']);
+
+    $salary = $_POST['salary'];
+
+    $customer_sql = "INSERT INTO staff (emp_name,staff_type_id,shift_id,id_card_type,id_card_no,address,contact_no,joining_date,salary) VALUES ('$first_name $space $last_name','$staff_type','$shift','$id_card_id','$id_card_no','$address','$contact_no','$joining_date','$salary')";
+   //echo $customer_sql;
+    $customer_result = mysqli_query($connection,$customer_sql);
+    if ($customer_result){
+                $response['done'] = true;
+                $response['data'] = 'Successfully Booking';
+            }else{
+                $response['done'] = false;
+                $response['data'] = "DataBase Error in status change";
+            }
+    //echo $customer_sql;
+//    if ($customer_result){
+//        $customer_id = mysqli_insert_id($connection);
+//        $booking_sql = "INSERT INTO booking (customer_id,room_id,check_in,check_out,total_price) VALUES ('$customer_id','$room_id','$check_in','$check_out','$total_price')";
+//        $booking_result = mysqli_query($connection,$booking_sql);
+//        if ($booking_result){
+//            $room_stats_sql = "UPDATE room SET status = '1' WHERE room_id = '$room_id'";
+//            if (mysqli_query($connection,$room_stats_sql)){
+//                $response['done'] = true;
+//                $response['data'] = 'Successfully Booking';
+//            }else{
+//                $response['done'] = false;
+//                $response['data'] = "DataBase Error in status change";
+//            }
+//        }else{
+//            $response['done'] = false;
+//            $response['data'] = "DataBase Error booking";
+//        }
+//    }else{
+//        $response['done'] = false;
+//        $response['data'] = "DataBase Error add customer";
+//    }
+//
+    echo json_encode($response);
+}
+
+
+if (isset($_POST['cutomerDetails'])) {
+    //$customer_result='';
+    $room_id = $_POST['room_id'];
+
+   if ($room_id != '') {
+       $query = "select customer_id from booking where room_id = '$room_id' and check_out=''";
+       $result = mysqli_query($connection, $query);
+       $details = mysqli_fetch_assoc($result);
+       if ($details['customer_id'] != '') {
+           $customer_id = $details['customer_id'];
+          // echo $customer_id;
+           $customer_query= "select * from customer where customer_id= '$customer_id'";
+           $customer_result = mysqli_query($connection, $customer_query);
+           //$customer_details = mysqli_fetch_assoc($customer_result);
+           //echo $customer_details['customer_id'];
+           if ($customer_result!='') {
+               $customer_details = mysqli_fetch_assoc($customer_result);
+                $id_type= $customer_details['id_card_type_id'];
+
+               $query = "select id_card_type from id_card_type where id_card_type_id = '$id_type'";
+               $result = mysqli_query($connection, $query);
+               $id_type_name = mysqli_fetch_assoc($result);
+
+               $response['done'] = true;
+               $response['customer_id'] = $customer_details['customer_id'];
+               $response['customer_name'] = $customer_details['customer_name'];
+               $response['contact_no'] = $customer_details['contact_no'];
+               $response['email'] = $customer_details['email'];
+               $response['id_card_type_id'] = $id_type_name['id_card_type'];
+               $response['id_card_no'] = $customer_details['id_card_no'];
+               $response['address'] = $customer_details['address'];
+              // echo $response;
+               echo json_encode($response);
+
+           } else {
+               $response['done'] = false;
+               $response['data'] = "DataBase Error";
+               echo json_encode($response);
+           }
+
+       }
+       else{
+           $response['done'] = true;
+           $response['customer_id'] = '';
+           $response['customer_name'] ='';
+           $response['contact_no'] = '';
+           $response['email'] = '';
+           $response['id_card_type_id'] = '';
+           $response['id_card_no'] = '';
+           $response['address'] = '';
+           // echo $response;
+           echo json_encode($response);
+
+       }
+   }
+
+
+
+
+
+}

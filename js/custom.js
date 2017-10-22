@@ -52,3 +52,12 @@ var checkout = $('#check_out_date').fdatepicker({
 
 
 
+var joining_date = $('.joining_date').fdatepicker({
+    format: 'mm-dd-yyyy',
+    onRender: function (date) {
+        return date.valueOf() < now.valueOf() ? 'disabled' : '';
+    }
+}).data('datepicker');
+
+
+

@@ -18,6 +18,9 @@ elseif (isset($_GET['add_emp'])){
 elseif (isset($_GET['notification'])){
     include_once "notification.php";
 }
+elseif (isset($_GET['statistics'])){
+    include_once "statistics.php";
+}
 else{
     include_once "room_mang.php";
 }
