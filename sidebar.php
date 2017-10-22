@@ -79,6 +79,22 @@
             </li>
         <?php }
         ?>
+
+        <?php
+        if (isset($_GET['statistics'])){ ?>
+            <li class="active">
+                <a href="index.php?statistics"><em class="fa fa-eject">&nbsp;</em>
+                    Statistics
+                </a>
+            </li>
+        <?php } else{?>
+        <li>
+            <a href="index.php?statistics"><em class="fa fa-eject">&nbsp;</em>
+                Statistics
+            </a>
+        </li>
+<?php }?>
+
         <li><a href="logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
     </ul>
 </div><!--/.sidebar-->

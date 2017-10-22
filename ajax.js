@@ -375,6 +375,44 @@ $('#edit_employee').submit(function () {
 
     return false;
 });
+$(document).on('click', '#cutomerDetails', function (e) {
+    e.preventDefault();
+
+    var room_id = $(this).data('id');
+   // alert(room_id);
+    console.log(room_id);
+
+    $.ajax({
+        type: 'post',
+        url: 'ajax.php',
+        dataType: 'JSON',
+        data: {
+            room_id: room_id,
+            cutomerDetails: ''
+        },
+        success: function (response) {
+
+
+            if (response.done == true) {
+
+
+                $('#customer_name').html(response.customer_name);
+                $('#customer_contact_no').html(response.contact_no);
+                $('#customer_email').html(response.email);
+                $('#customer_id_card_type').html(response.id_card_type_id);
+                $('#customer_id_card_number').html(response.id_card_no);
+                $('#customer_address').html(response.address);
+
+            } else {
+
+
+                $('.edit_response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
+            }
+        }
+    });
+
+});
+
 
 
 

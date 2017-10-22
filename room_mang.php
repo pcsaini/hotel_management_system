@@ -77,8 +77,11 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <button data-toggle="modal" data-target="#editRoom" data-id="<?php echo $rooms['room_id']; ?>" id="roomEdit" class="btn btn-info"><i class="fa fa-pencil"></i></button>
-                                        <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+
+                                        <button title="Edit Room Information" data-toggle="modal" data-target="#editRoom" data-id="<?php echo $rooms['room_id']; ?>" id="roomEdit" class="btn btn-info"><i class="fa fa-pencil"></i></button>
+
+                                        <button title="Customer Information" data-toggle="modal" data-target="#cutomerDetailsModal" data-id="<?php echo $rooms['room_id']; ?>" id="cutomerDetails" class="btn btn-warning"><i class="fa fa-eye"></i></button>
+                                        <a title="Delete Room" href="#" class="btn btn-danger"><i class="fa fa-trash" alt="delete"></i></a>
                                     </td>
                                 </tr>
                             <?php }
@@ -181,6 +184,61 @@
             </div>
         </div>
     </div>
+
+
+    <!---customer details-->
+    <div id="cutomerDetailsModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Room</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Detail</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Customer Name</td>
+                                    <td id="customer_name"></td>
+                                </tr>
+                                <tr>
+                                    <td>Contact Number</td>
+                                    <td id="customer_contact_no"></td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td id="customer_email"></td>
+                                </tr>
+                                <tr>
+                                    <td>ID Card Type</td>
+                                    <td id="customer_id_card_type"></td>
+                                </tr>
+                                <tr>
+                                    <td>ID Card Number</td>
+                                    <td id="customer_id_card_number"></td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td id="customer_address"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---customer details ends here-->
 
     <!-- Check In Modal -->
     <div id="checkIn" class="modal fade" role="dialog">

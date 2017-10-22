@@ -220,3 +220,66 @@ if (isset($_POST['add_employee'])) {
 //
     echo json_encode($response);
 }
+
+
+if (isset($_POST['cutomerDetails'])) {
+    //$customer_result='';
+    $room_id = $_POST['room_id'];
+
+   if ($room_id != '') {
+       $query = "select customer_id from booking where room_id = '$room_id' and check_out=''";
+       $result = mysqli_query($connection, $query);
+       $details = mysqli_fetch_assoc($result);
+       if ($details['customer_id'] != '') {
+           $customer_id = $details['customer_id'];
+          // echo $customer_id;
+           $customer_query= "select * from customer where customer_id= '$customer_id'";
+           $customer_result = mysqli_query($connection, $customer_query);
+           //$customer_details = mysqli_fetch_assoc($customer_result);
+           //echo $customer_details['customer_id'];
+           if ($customer_result!='') {
+               $customer_details = mysqli_fetch_assoc($customer_result);
+                $id_type= $customer_details['id_card_type_id'];
+
+               $query = "select id_card_type from id_card_type where id_card_type_id = '$id_type'";
+               $result = mysqli_query($connection, $query);
+               $id_type_name = mysqli_fetch_assoc($result);
+
+               $response['done'] = true;
+               $response['customer_id'] = $customer_details['customer_id'];
+               $response['customer_name'] = $customer_details['customer_name'];
+               $response['contact_no'] = $customer_details['contact_no'];
+               $response['email'] = $customer_details['email'];
+               $response['id_card_type_id'] = $id_type_name['id_card_type'];
+               $response['id_card_no'] = $customer_details['id_card_no'];
+               $response['address'] = $customer_details['address'];
+              // echo $response;
+               echo json_encode($response);
+
+           } else {
+               $response['done'] = false;
+               $response['data'] = "DataBase Error";
+               echo json_encode($response);
+           }
+
+       }
+       else{
+           $response['done'] = true;
+           $response['customer_id'] = '';
+           $response['customer_name'] ='';
+           $response['contact_no'] = '';
+           $response['email'] = '';
+           $response['id_card_type_id'] = '';
+           $response['id_card_no'] = '';
+           $response['address'] = '';
+           // echo $response;
+           echo json_encode($response);
+
+       }
+   }
+
+
+
+
+
+}
