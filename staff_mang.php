@@ -106,7 +106,7 @@ while ($staffGlobal = mysqli_fetch_assoc($staff_result)) {
                             <div class="panel panel-default">
                                 <div class="panel-heading">Employee Detail:</div>
                                 <div class="panel-body">
-                                    <form role="form" action="functionmis.php" method="post">
+                                    <form  action="functionmis.php" method="post">
                                         <div class="row">
                                             <div class="form-group col-lg-6">
                                                 <label>Staff</label>
@@ -188,7 +188,7 @@ while ($staffGlobal = mysqli_fetch_assoc($staff_result)) {
 
                                             <div class="form-group col-lg-6">
                                                 <label>Joining Date</label>
-                                                <input type="date" class="form-control" placeholder="DD/MM/YYYY" id="joining_date" value="<?php echo $staffGlobal['joining_date']; ?>" name="joining_date">
+                                                <input type="date" class="form-control joining_date" placeholder="DD/MM/YYYY" id="joining_date" value="<?php echo $staffGlobal['joining_date']; ?>" name="joining_date">
                                             </div>
 
                                             <div class="form-group col-lg-6">
