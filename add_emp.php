@@ -95,7 +95,7 @@
 
                             <div class="form-group col-lg-6">
                                 <label>Joining Date</label>
-                                <input type="date" class="form-control" placeholder="DD/MM/YYYY" id="joining_date">
+                                <input type="date" class="form-control joining_date" placeholder="DD/MM/YYYY" id="joining_date">
                             </div>
 
                             <div class="form-group col-lg-6">
