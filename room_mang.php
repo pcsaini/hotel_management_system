@@ -62,6 +62,7 @@
                                             echo '-';
                                         }
                                         else{
+
                                             echo '<a href="#" class="btn btn-danger">12/10/2017</a>';
                                         }
                                         ?>
@@ -270,6 +271,7 @@
                                     <td id="getRoomType"></td>
                                 </tr>
                                 <tr>
+                                    <input type="hidden" id="room_id">
                                     <td>Room No</td>
                                     <td id="getRoomNo"></td>
                                 </tr>

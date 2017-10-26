@@ -283,3 +283,29 @@ if (isset($_POST['cutomerDetails'])) {
 
 
 }
+
+
+if (isset($_POST['check_in_advance_payment'])) {
+    $room_id = $_POST['room_id'];
+    $room_no = $_POST['room_no'];
+    $advance_payment = $_POST['advance_payment'];
+    $check_in = '12345678';
+
+    if ($room_no != '') {
+        $query = "UPDATE room SET check_in_status = '1' where room_id = '$room_id'";
+        $result = mysqli_query($connection, $query);
+
+        $query = "select * from booking where room_id = '$room_id' and check_in=''";
+        $result = mysqli_query($connection, $query);
+        $booking_details = mysqli_fetch_assoc($result);
+        $booking_id=$booking_details['booking_id'];
+        $remaining_price=$booking_details['total_price']-$advance_payment;
+
+        $query = "UPDATE booking SET remaining_price = '$remaining_price' ,	check_in ='$check_in' where booking_id = '$booking_id'";
+        $result = mysqli_query($connection, $query);
+        $response['done'] = true;
+        echo json_encode($response);
+
+
+    }
+}

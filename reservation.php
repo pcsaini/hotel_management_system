@@ -178,7 +178,7 @@ if (isset($_GET['room_id'])){
 
     <div class="row">
         <div class="col-sm-12">
-            <p class="back-link">MIS Developed by <a href="https://www.pcsaini.in">pcsaini</a></p>
+            <p class="back-link">MIS Developed by <a href="https://www.pcsaini.in">Team 2</a></p>
         </div>
     </div>
 
