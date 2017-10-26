@@ -181,6 +181,7 @@ $(document).on('click', '#checkInRoom', function (e) {
         },
         success: function (response) {
             if (response.done == true) {
+                $('#room_id').val(room_id);
                 $('#getCustomerName').html(response.name);
                 $('#getRoomType').html(response.room_type);
                 $('#getRoomNo').html(response.room_no);
@@ -231,23 +232,27 @@ $(document).on('click', '#checkOutRoom', function (e) {
 });
 
 $('#advancePayment').submit(function () {
-    var room_type_id = $('#edit_room_type').val();
-    var room_no = $('#edit_room_no').val();
-    var room_id = $('#edit_room_id').val();
+
+    var room_no = $('#getRoomNo').text();
+    var room_id = $('#room_id').val();
+    var advance_payment = $('#advance_payment').val();
+    //var room_id = $(this).data('id');
+
+
 
     $.ajax({
         type: 'post',
         url: 'ajax.php',
         dataType: 'JSON',
         data: {
-            room_type_id: room_type_id,
             room_no: room_no,
             room_id: room_id,
-            edit_room: ''
+            advance_payment: advance_payment,
+            check_in_advance_payment:''
         },
         success: function (response) {
             if (response.done == true) {
-                $('#editRoom').modal('hide');
+                $('#checkIn').modal('hide');
                 window.location.href = 'index.php?room_mang';
             } else {
                 $('.response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
