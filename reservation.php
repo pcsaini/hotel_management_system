@@ -174,7 +174,7 @@ if (isset($_GET['room_id'])){
 
                             <div class="form-group col-lg-6">
                                 <label>ID Card No</label>
-                                <input class="form-control" placeholder="ID Card No" id="id_card_no" data-error="Enter Valid ID Card No" required>
+                                <input type="text" class="form-control" placeholder="ID Card No" id="id_card_no" data-error="Enter Valid ID Card No" required>
                                 <div class="help-block with-errors"></div>
                             </div>
 
