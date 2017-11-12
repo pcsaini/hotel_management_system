@@ -253,7 +253,7 @@ $('#advancePayment').submit(function () {
         data: {
             booking_id: booking_id,
             advance_payment: advance_payment,
-            check_in:''
+            check_in_room:''
         },
         success: function (response) {
             if (response.done == true) {
@@ -313,7 +313,7 @@ $('#checkOutRoom_n').submit(function () {
         data: {
             booking_id: booking_id,
             remaining_amount: remaining_amount,
-            check_out:''
+            check_out_room:''
         },
         success: function (response) {
             if (response.done == true) {

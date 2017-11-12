@@ -120,7 +120,7 @@ if (isset($_POST['booking'])) {
 
     if ($customer_result){
         $customer_id = mysqli_insert_id($connection);
-        $booking_sql = "INSERT INTO booking (customer_id,room_id,check_in,check_out,total_price) VALUES ('$customer_id','$room_id','$check_in','$check_out','$total_price')";
+        $booking_sql = "INSERT INTO booking (customer_id,room_id,check_in,check_out,total_price,remaining_price) VALUES ('$customer_id','$room_id','$check_in','$check_out','$total_price','$total_price')";
         $booking_result = mysqli_query($connection,$booking_sql);
         if ($booking_result){
             $room_stats_sql = "UPDATE room SET status = '1' WHERE room_id = '$room_id'";
@@ -167,7 +167,7 @@ if (isset($_POST['booked_room'])) {
     echo json_encode($response);
 }
 
-if (isset($_POST['check_in'])) {
+if (isset($_POST['check_in_room'])) {
     $booking_id = $_POST['booking_id'];
     $advance_payment = $_POST['advance_payment'];
 
@@ -200,7 +200,7 @@ if (isset($_POST['check_in'])) {
     echo json_encode($response);
 }
 
-if (isset($_POST['check_out'])) {
+if (isset($_POST['check_out_room'])) {
     $booking_id = $_POST['booking_id'];
     $remaining_amount = $_POST['remaining_amount'];
 
