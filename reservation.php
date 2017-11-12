@@ -30,7 +30,7 @@ if (isset($_GET['room_id'])){
 
     <div class="row">
         <div class="col-lg-12">
-            <form role="form" id="booking">
+            <form role="form" id="booking" data-toggle="validator">
                 <div class="response"></div>
                 <div class="col-lg-12">
                     <?php
@@ -43,28 +43,32 @@ if (isset($_GET['room_id'])){
                             <div class="panel-body">
                                 <div class="form-group col-lg-6">
                                     <label>Room Type</label>
-                                    <select class="form-control" id="room_type">
+                                    <select class="form-control" id="room_type" data-error="Select Room Type" required>
                                         <option selected disabled>Select Room Type</option>
                                         <option selected value="<?php echo $get_room_type_id; ?>"><?php echo $get_room_type; ?></option>
                                     </select>
+                                    <div class="help-block with-errors"></div>
                                 </div>
 
                                 <div class="form-group col-lg-6">
                                     <label>Room No</label>
-                                    <select class="form-control" id="room_no" onchange="fetch_price(this.value)">
-                                        <option selected disabled>Select Room Type</option>
+                                    <select class="form-control" id="room_no" onchange="fetch_price(this.value)" required data-error="Select Room No">
+                                        <option selected disabled>Select Room No</option>
                                         <option selected value="<?php echo $get_room_id; ?>"><?php echo $get_room_no; ?></option>
                                     </select>
+                                    <div class="help-block with-errors"></div>
                                 </div>
 
                                 <div class="form-group col-lg-6">
                                     <label>Check In Date</label>
-                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="check_in_date">
+                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="check_in_date" data-error="Select Check In Date" required>
+                                    <div class="help-block with-errors"></div>
                                 </div>
 
                                 <div class="form-group col-lg-6">
                                     <label>Check Out Date</label>
-                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="check_out_date">
+                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="check_out_date" data-error="Select Check Out Date" required>
+                                    <div class="help-block with-errors"></div>
                                 </div>
 
                                 <div class="col-lg-12">
@@ -82,7 +86,7 @@ if (isset($_GET['room_id'])){
                             <div class="panel-body">
                                 <div class="form-group col-lg-6">
                                     <label>Room Type</label>
-                                    <select class="form-control" id="room_type" onchange="fetch_room(this.value);">
+                                    <select class="form-control" id="room_type" onchange="fetch_room(this.value);" required data-error="Select Room Type">
                                         <option selected disabled>Select Room Type</option>
                                         <?php
                                         $query  = "SELECT * FROM room_type";
@@ -93,23 +97,27 @@ if (isset($_GET['room_id'])){
                                             }}
                                         ?>
                                     </select>
+                                    <div class="help-block with-errors"></div>
                                 </div>
 
                                 <div class="form-group col-lg-6">
                                     <label>Room No</label>
-                                    <select class="form-control" id="room_no" onchange="fetch_price(this.value)">
+                                    <select class="form-control" id="room_no" onchange="fetch_price(this.value)" required data-error="Select Room No">
 
                                     </select>
+                                    <div class="help-block with-errors"></div>
                                 </div>
 
                                 <div class="form-group col-lg-6">
                                     <label>Check In Date</label>
-                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="check_in_date">
+                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="check_in_date" data-error="Select Check In Date" required>
+                                    <div class="help-block with-errors"></div>
                                 </div>
 
                                 <div class="form-group col-lg-6">
                                     <label>Check Out Date</label>
-                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="check_out_date">
+                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="check_out_date" data-error="Select Check Out Date" required>
+                                    <div class="help-block with-errors"></div>
                                 </div>
 
                                 <div class="col-lg-12">
@@ -126,27 +134,31 @@ if (isset($_GET['room_id'])){
                         <div class="panel-body">
                             <div class="form-group col-lg-6">
                                 <label>First Name</label>
-                                <input class="form-control" placeholder="First Name" id="first_name">
+                                <input class="form-control" placeholder="First Name" id="first_name" data-error="Enter First Name" required>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>Last Name</label>
-                                <input class="form-control" placeholder="Last Name" id="last_name">
+                                <input class="form-control" placeholder="Last Name" id="last_name" data-error="Enter Last Name" required>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>Contact No</label>
-                                <input type="number" class="form-control" placeholder="Contact No" id="contact_no">
+                                <input type="number" class="form-control" data-error="Enter Min 10 Digit" data-minlength="10" placeholder="Contact No" id="contact_no" required>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>Email Address</label>
-                                <input type="email" class="form-control" placeholder="Email Address" id="email">
+                                <input type="email" class="form-control" placeholder="Email Address" id="email" data-error="Enter Valid Email Address" required>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>ID Card Type</label>
-                                <select class="form-control" id="id_card_id">
+                                <select class="form-control" id="id_card_id" data-error="Select ID Card Type" required>
                                     <option selected disabled>Select ID Card Type</option>
                                     <?php
                                     $query  = "SELECT * FROM id_card_type";
@@ -157,16 +169,19 @@ if (isset($_GET['room_id'])){
                                         }}
                                     ?>
                                 </select>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>ID Card No</label>
-                                <input class="form-control" placeholder="ID Card No" id="id_card_no">
+                                <input class="form-control" placeholder="ID Card No" id="id_card_no" data-error="Enter Valid ID Card No" required>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-12">
                                 <label>Address</label>
-                                <textarea class="form-control" rows="3" id="address"></textarea>
+                                <textarea class="form-control" rows="3" id="address" required></textarea>
+                                <div class="help-block with-errors"></div>
                             </div>
                         </div>
                     </div>
@@ -178,7 +193,7 @@ if (isset($_GET['room_id'])){
 
     <div class="row">
         <div class="col-sm-12">
-            <p class="back-link">MIS Developed by <a href="https://www.pcsaini.in">pcsaini</a></p>
+            <p class="back-link">MIS Developed by <a href="https://www.pcsaini.in">Team 2</a></p>
         </div>
     </div>
 

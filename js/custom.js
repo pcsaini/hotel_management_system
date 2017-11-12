@@ -23,7 +23,7 @@ $(document).ready(function () {
 var nowTemp = new Date();
 var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 var checkin = $('#check_in_date').fdatepicker({
-    format: 'mm-dd-yyyy',
+    format: 'dd-mm-yyyy',
     onRender: function (date) {
         return date.valueOf() < now.valueOf() ? 'disabled' : '';
     }
@@ -37,7 +37,7 @@ var checkin = $('#check_in_date').fdatepicker({
     $('#check_out_date')[0].focus();
 }).data('datepicker');
 var checkout = $('#check_out_date').fdatepicker({
-    format: 'mm-dd-yyyy',
+    format: 'dd-mm-yyyy',
     onRender: function (date) {
         return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
     }

@@ -128,40 +128,44 @@ $('#booking').submit(function () {
     var address = $('#address').val();
     var total_price = document.getElementById('total_price').innerHTML;
 
-    $.ajax({
-        type: 'post',
-        url: 'ajax.php',
-        dataType: 'JSON',
-        data: {
-            room_type_id:room_type_id,
-            room_id:room_id,
-            check_in:check_in_date,
-            check_out:check_out_date,
-            total_price:total_price,
-            name:first_name+' '+last_name,
-            contact_no:contact_no,
-            email:email,
-            id_card_id:id_card_id,
-            id_card_no:id_card_no,
-            address:address,
-            booking:''
-        },
-        success: function (response) {
-            if (response.done == true) {
-                $('#getCustomerName').html(first_name+' '+last_name);
-                $('#getRoomType').html(room_type);
-                $('#getRoomNo').html(room_no);
-                $('#getCheckIn').html(check_in_date);
-                $('#getCheckOut').html(check_out_date);
-                $('#getTotalPrice').html(total_price);
-                $('#getPaymentStaus').html("Not Done");
-                $('#bookingConfirm').modal('show');
-                document.getElementById("booking").reset();
-            } else {
-                $('.response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
+    if(!room_no && !first_name && !contact_no && !id_card_no && !address){
+        $('.response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>Please Fill Cardinality</div>');
+    }else{
+        $.ajax({
+            type: 'post',
+            url: 'ajax.php',
+            dataType: 'JSON',
+            data: {
+                room_type_id:room_type_id,
+                room_id:room_id,
+                check_in:check_in_date,
+                check_out:check_out_date,
+                total_price:total_price,
+                name:first_name+' '+last_name,
+                contact_no:contact_no,
+                email:email,
+                id_card_id:id_card_id,
+                id_card_no:id_card_no,
+                address:address,
+                booking:''
+            },
+            success: function (response) {
+                if (response.done == true) {
+                    $('#getCustomerName').html(first_name+' '+last_name);
+                    $('#getRoomType').html(room_type);
+                    $('#getRoomNo').html(room_no);
+                    $('#getCheckIn').html(check_in_date);
+                    $('#getCheckOut').html(check_out_date);
+                    $('#getTotalPrice').html(total_price);
+                    $('#getPaymentStaus').html("Not Done");
+                    $('#bookingConfirm').modal('show');
+                    document.getElementById("booking").reset();
+                } else {
+                    $('.response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
+                }
             }
-        }
-    });
+        });
+    }
 
     return false;
 });
@@ -181,6 +185,7 @@ $(document).on('click', '#checkInRoom', function (e) {
         },
         success: function (response) {
             if (response.done == true) {
+                $('#room_id').val(room_id);
                 $('#getCustomerName').html(response.name);
                 $('#getRoomType').html(response.room_type);
                 $('#getRoomNo').html(response.room_no);
@@ -231,23 +236,24 @@ $(document).on('click', '#checkOutRoom', function (e) {
 });
 
 $('#advancePayment').submit(function () {
-    var room_type_id = $('#edit_room_type').val();
-    var room_no = $('#edit_room_no').val();
-    var room_id = $('#edit_room_id').val();
+
+    var room_no = $('#getRoomNo').text();
+    var room_id = $('#room_id').val();
+    var advance_payment = $('#advance_payment').val();
 
     $.ajax({
         type: 'post',
         url: 'ajax.php',
         dataType: 'JSON',
         data: {
-            room_type_id: room_type_id,
             room_no: room_no,
             room_id: room_id,
-            edit_room: ''
+            advance_payment: advance_payment,
+            check_in_advance_payment:''
         },
         success: function (response) {
             if (response.done == true) {
-                $('#editRoom').modal('hide');
+                $('#checkIn').modal('hide');
                 window.location.href = 'index.php?room_mang';
             } else {
                 $('.response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
