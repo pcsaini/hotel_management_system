@@ -13,17 +13,17 @@
             <h1 class="page-header">Add Employee</h1>
         </div>
     </div><!--/.row-->
-    <form role="form" id="add_employee">
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Employee Detail:</div>
                 <div class="panel-body">
-                    <form role="form" id="addEmployee">
+                    <div class="emp-response"></div>
+                    <form role="form" id="addEmployee" data-toggle="validator">
                         <div class="row">
                             <div class="form-group col-lg-6">
                                 <label>Staff</label>
-                                <select class="form-control" id="staff_type">
+                                <select class="form-control" id="staff_type" required>
                                     <option selected disabled>Select Staff Type</option>
                                     <?php
                                     $query = "SELECT * FROM staff_type";
@@ -35,11 +35,12 @@
                                     }
                                     ?>
                                 </select>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>Shift</label>
-                                <select class="form-control" id="shift">
+                                <select class="form-control" id="shift" required>
                                     <option selected disabled>Select Staff Type</option>
                                     <?php
                                     $query = "SELECT * FROM shift";
@@ -51,21 +52,24 @@
                                     }
                                     ?>
                                 </select>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>First Name</label>
-                                <input type="text" class="form-control" placeholder="First Name" id="first_name">
+                                <input type="text" class="form-control" placeholder="First Name" id="first_name" required>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>Last Name</label>
-                                <input type="text" class="form-control" placeholder="Last Name" id="last_name">
+                                <input type="text" class="form-control" placeholder="Last Name" id="last_name" required>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>ID Card Type</label>
-                                <select class="form-control" id="id_card_id">
+                                <select class="form-control" id="id_card_id" required>
                                     <option selected disabled>Select ID Card Type</option>
                                     <?php
                                     $query = "SELECT * FROM id_card_type";
@@ -77,32 +81,31 @@
                                     }
                                     ?>
                                 </select>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>ID Card No</label>
-                                <input class="form-control" placeholder="ID Card No" id="id_card_no">
+                                <input type="text" class="form-control" placeholder="ID Card No" id="id_card_no" required>
+                                <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group col-lg-6">
                                 <label>Contact Number</label>
-                                <input type="date" class="form-control" placeholder="Contact Number" id="contact_no">
+                                <input type="number" class="form-control" placeholder="Contact Number" id="contact_no" required>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>Address</label>
-                                <input type="text" class="form-control" placeholder="address" id="address">
-                            </div>
-
-                            <div class="form-group col-lg-6">
-                                <label>Joining Date</label>
-                                <input type="date" class="form-control joining_date" placeholder="DD/MM/YYYY" id="joining_date">
+                                <input type="text" class="form-control" placeholder="address" id="address" required>
+                                <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>Salary</label>
-                                <input type="number" class="form-control" placeholder="Salary" id="salary">
+                                <input type="number" class="form-control" placeholder="Salary" id="salary" data-error="Enter Salary" required>
+                                <div class="help-block with-errors"></div>
                             </div>
-
 
                         </div>
 
@@ -115,7 +118,6 @@
 
 
     </div>
-    </form>
 
     <div class="row">
         <div class="col-sm-12">

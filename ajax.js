@@ -337,11 +337,10 @@ $('#add_employee').submit(function () {
     var contact_no = $('#contact_no').val();
     var id_card_id = $('#id_card_id').val();
     var id_card_no = $('#id_card_no').val();
-    var joining_date = $('#joining_date').val();
     var address = $('#address').val();
     var salary =$('#salary').val();
 
-//alert(first_name);
+    console.log(joining_date);
     $.ajax({
         type: 'post',
         url: 'ajax.php',
@@ -354,29 +353,18 @@ $('#add_employee').submit(function () {
             contact_no:contact_no,
             id_card_id:id_card_id,
             id_card_no:id_card_no,
-            joining_date:joining_date,
             address:address,
             salary:salary,
-            add_employee:'',
+            add_employee:''
 
         },
         success: function (response) {
-            alert("Employee Added Successfully");
-            document.getElementById("add_employee").reset();
-           /* if (response.done == true) {
-                $('#getCustomerName').html(first_name+' '+last_name);
-                $('#getRoomType').html(room_type);
-                $('#getRoomNo').html(room_no);
-                $('#getCheckIn').html(check_in_date);
-                $('#getCheckOut').html(check_out_date);
-                $('#getTotalPrice').html(total_price);
-                $('#getPaymentStaus').html("Not Done");
-                $('#bookingConfirm').modal('show');
-                document.getElementById("booking").reset();
-            } else {
-                $('.response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
-            }*/
-
+            if (response.done == true){
+                document.getElementById("add_employee").reset();
+                $('.emp-response').html('<div class="alert bg-success alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>Employee Successfully Added</div>');
+            }else{
+                $('.emp-response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
+            }
         }
     });
 
@@ -436,6 +424,15 @@ $('#edit_employee').submit(function () {
     });
 
     return false;
+});
+
+$(document).on('click', '#complaint', function (e) {
+    e.preventDefault();
+
+    var complaint_id = $(this).data('id');
+    console.log(complaint_id);
+    $('#complaint_id').val(complaint_id);
+
 });
 
 

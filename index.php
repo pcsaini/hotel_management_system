@@ -25,8 +25,8 @@ elseif (isset($_GET['staff_mang'])){
 elseif (isset($_GET['add_emp'])){
     include_once "add_emp.php";
 }
-elseif (isset($_GET['notification'])){
-    include_once "notification.php";
+elseif (isset($_GET['complain'])){
+    include_once "complain.php";
 }
 elseif (isset($_GET['statistics'])){
     include_once "statistics.php";

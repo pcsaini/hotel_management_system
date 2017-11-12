@@ -47,7 +47,7 @@
                                 <td><?php  echo $staff['emp_name']; ?></td>
                                 <td><?php  echo $staff['staff_type']; ?></td>
                                 <td><?php  echo $staff['shift'] .' - ' .$staff['shift_timing']; ?></td>
-                                <td><?php  echo $staff['joining_date']; ?></td>
+                                <td><?php  echo date('M j, Y',strtotime($staff['joining_date'])); ?></td>
                                 <td><?php  echo $staff['salary']; ?></td>
 
                                 <td>
@@ -106,11 +106,11 @@ while ($staffGlobal = mysqli_fetch_assoc($staff_result)) {
                             <div class="panel panel-default">
                                 <div class="panel-heading">Employee Detail:</div>
                                 <div class="panel-body">
-                                    <form  action="functionmis.php" method="post">
+                                    <form data-toggle="validator" role="form" action="functionmis.php" method="post">
                                         <div class="row">
                                             <div class="form-group col-lg-6">
                                                 <label>Staff</label>
-                                                <select class="form-control" id="staff_type" name="staff_type_id">
+                                                <select class="form-control" id="staff_type" name="staff_type_id" required>
                                                     <option selected disabled>Select Staff Type</option>
                                                     <?php
                                                     $query = "SELECT * FROM staff_type";
@@ -127,7 +127,7 @@ while ($staffGlobal = mysqli_fetch_assoc($staff_result)) {
 
                                             <div class="form-group col-lg-6">
                                                 <label>Shift</label>
-                                                <select class="form-control" id="shift" name="shift_id">
+                                                <select class="form-control" id="shift" name="shift_id" required>
                                                     <option selected disabled>Select Staff Type</option>
                                                     <?php
                                                     $query = "SELECT * FROM shift";
@@ -145,17 +145,17 @@ while ($staffGlobal = mysqli_fetch_assoc($staff_result)) {
 
                                             <div class="form-group col-lg-6">
                                                 <label>First Name</label>
-                                                <input type="text" value="<?php echo $fullname[0]; ?>" class="form-control" placeholder="First Name" id="first_name" name="first_name">
+                                                <input type="text" value="<?php echo $fullname[0]; ?>" class="form-control" placeholder="First Name" id="first_name" name="first_name" required>
                                             </div>
 
                                             <div class="form-group col-lg-6">
                                                 <label>Last Name</label>
-                                                <input type="text" value="<?php echo $fullname[1]; ?>" class="form-control" placeholder="Last Name" id="last_name"name="last_name">
+                                                <input type="text" value="<?php echo $fullname[1]; ?>" class="form-control" placeholder="Last Name" id="last_name"name="last_name" required>
                                             </div>
 
                                             <div class="form-group col-lg-6">
                                                 <label>ID Card Type</label>
-                                                <select class="form-control" id="id_card_id" name="id_card_type">
+                                                <select class="form-control" id="id_card_id" name="id_card_type" required>
                                                     <option selected disabled>Select ID Card Type</option>
                                                     <?php
                                                     $query = "SELECT * FROM id_card_type";
@@ -174,11 +174,11 @@ while ($staffGlobal = mysqli_fetch_assoc($staff_result)) {
 
                                             <div class="form-group col-lg-6">
                                                 <label>ID Card No</label>
-                                                <input class="form-control" placeholder="ID Card No" id="id_card_no" value="<?php echo $staffGlobal['id_card_no']; ?>" name="id_card_no">
+                                                <input type="text" class="form-control" placeholder="ID Card No" id="id_card_no" value="<?php echo $staffGlobal['id_card_no']; ?>" name="id_card_no" required>
                                             </div>
                                             <div class="form-group col-lg-6">
                                                 <label>Contact Number</label>
-                                                <input type="date" class="form-control" placeholder="Contact Number" id="contact_no" value="<?php echo $staffGlobal['contact_no']; ?>" name="contact_no">
+                                                <input type="number" class="form-control" placeholder="Contact Number" id="contact_no" value="<?php echo $staffGlobal['contact_no']; ?>" name="contact_no" required>
                                             </div>
 
                                             <div class="form-group col-lg-6">
@@ -187,19 +187,13 @@ while ($staffGlobal = mysqli_fetch_assoc($staff_result)) {
                                             </div>
 
                                             <div class="form-group col-lg-6">
-                                                <label>Joining Date</label>
-                                                <input type="date" class="form-control joining_date" placeholder="DD/MM/YYYY" id="joining_date" value="<?php echo $staffGlobal['joining_date']; ?>" name="joining_date">
-                                            </div>
-
-                                            <div class="form-group col-lg-6">
                                                 <label>Salary</label>
-                                                <input type="number" class="form-control" placeholder="Salary" id="salary" value="<?php echo $staffGlobal['salary']; ?>" name="salary">
+                                                <input type="number" class="form-control" placeholder="Salary" id="salary" value="<?php echo $staffGlobal['salary']; ?>" name="salary" required>
                                             </div>
-
 
                                         </div>
 
-                                        <input type="submit" class="btn btn-lg btn-primary" name="submit" value="submit"></input>
+                                        <button type="submit" class="btn btn-lg btn-primary" name="submit">Submit</button>
                                         <button type="reset" class="btn btn-lg btn-danger">Reset</button>
                                     </form>
                                 </div>

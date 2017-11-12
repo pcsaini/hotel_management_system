@@ -65,16 +65,16 @@
                 </a>
             </li>
         <?php }
-        if (isset($_GET['notification'])){ ?>
+        if (isset($_GET['complain'])){ ?>
             <li class="active">
-                <a href="index.php?notification"><em class="fa fa-envelope">&nbsp;</em>
-                    Notification
+                <a href="index.php?complain"><em class="fa fa-envelope">&nbsp;</em>
+                    Complain
                 </a>
             </li>
         <?php } else{?>
             <li>
-                <a href="index.php?notification"><em class="fa fa-envelope">&nbsp;</em>
-                    Notification
+                <a href="index.php?complain"><em class="fa fa-envelope">&nbsp;</em>
+                    Complain
                 </a>
             </li>
         <?php }
