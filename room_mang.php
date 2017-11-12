@@ -239,6 +239,10 @@
                                     <td>Address</td>
                                     <td id="customer_address"></td>
                                 </tr>
+                                <tr>
+                                    <td>Remaining Amount</td>
+                                    <td id="remaining_price"></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -297,11 +301,12 @@
                                 </tbody>
                             </table>
                             <form role="form" id="advancePayment">
+                                <div class="payment-response"></div>
                                 <div class="form-group col-lg-12">
                                     <label>Advance Payment</label>
                                     <input type="number" class="form-control" id="advance_payment" placeholder="Advance Payment">
                                 </div>
-                                <input type="hidden" id="getBookingId">
+                                <input type="hidden" id="getBookingID" value="">
                                 <button type="submit" class="btn btn-primary pull-right">Payment & Check In</button>
                             </form>
                         </div>
@@ -363,13 +368,14 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <form role="form" id="advancePayment" data-toggle="validator" role="form">
+                            <form role="form" id="checkOutRoom_n" data-toggle="validator">
+                                <div class="checkout-response"></div>
                                 <div class="form-group col-lg-12">
                                     <label>Remaining Payment</label>
-                                    <input type="text" class="form-control" id="advancePrice" placeholder="Remaining Payment">
+                                    <input type="text" class="form-control" id="remaining_amount" placeholder="Remaining Payment" required data-error="Please Enter Remaining Amount">
                                     <div class="help-block with-errors"></div>
                                 </div>
-                                <input type="hidden" id="getBookingId_n">
+                                <input type="hidden" id="getBookingId_n" value="">
                                 <button type="submit" class="btn btn-primary pull-right">Payment & Checkout</button>
                             </form>
                         </div>

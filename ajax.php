@@ -120,7 +120,7 @@ if (isset($_POST['booking'])) {
 
     if ($customer_result){
         $customer_id = mysqli_insert_id($connection);
-        $booking_sql = "INSERT INTO booking (customer_id,room_id,check_in,check_out,total_price) VALUES ('$customer_id','$room_id','$check_in','$check_out','$total_price')";
+        $booking_sql = "INSERT INTO booking (customer_id,room_id,check_in,check_out,total_price,remaining_price) VALUES ('$customer_id','$room_id','$check_in','$check_out','$total_price','$total_price')";
         $booking_result = mysqli_query($connection,$booking_sql);
         if ($booking_result){
             $room_stats_sql = "UPDATE room SET status = '1' WHERE room_id = '$room_id'";
@@ -166,7 +166,79 @@ if (isset($_POST['booked_room'])) {
 
     echo json_encode($response);
 }
-//vishal code
+
+if (isset($_POST['check_in_room'])) {
+    $booking_id = $_POST['booking_id'];
+    $advance_payment = $_POST['advance_payment'];
+
+    if ($booking_id != '') {
+        $query = "select * from booking where booking_id = '$booking_id'";
+        $result = mysqli_query($connection, $query);
+        $booking_details = mysqli_fetch_assoc($result);
+        $room_id = $booking_details['room_id'];
+        $remaining_price = $booking_details['total_price'] - $advance_payment;
+
+        $updateBooking = "UPDATE booking SET remaining_price = '$remaining_price' where booking_id = '$booking_id'";
+        $result = mysqli_query($connection, $updateBooking);
+        if($result){
+            $updateRoom = "UPDATE room SET check_in_status = '1' WHERE room_id = '$room_id'";
+            $updateResult = mysqli_query($connection,$updateRoom);
+            if ($updateResult){
+                $response['done'] = true;
+            }else{
+                $response['done'] = false;
+                $response['data'] = "Problem in Update Room Check in status";
+            }
+        }else{
+            $response['done'] = false;
+            $response['data'] = "Problem in payment";
+        }
+    }else{
+        $response['done'] = false;
+        $response['data'] = "Error With Booking";
+    }
+    echo json_encode($response);
+}
+
+if (isset($_POST['check_out_room'])) {
+    $booking_id = $_POST['booking_id'];
+    $remaining_amount = $_POST['remaining_amount'];
+
+    if ($booking_id != '') {
+        $query = "select * from booking where booking_id = '$booking_id'";
+        $result = mysqli_query($connection, $query);
+        $booking_details = mysqli_fetch_assoc($result);
+        $room_id = $booking_details['room_id'];
+        $remaining_price = $booking_details['remaining_price'];
+
+        if ($remaining_price == $remaining_amount){
+            $updateBooking = "UPDATE booking SET remaining_price = '0',payment_status = '1' where booking_id = '$booking_id'";
+            $result = mysqli_query($connection, $updateBooking);
+            if($result){
+                $updateRoom = "UPDATE room SET status = NULL,check_in_status = '0',check_out_status = '1' WHERE room_id = '$room_id'";
+                $updateResult = mysqli_query($connection,$updateRoom);
+                if ($updateResult){
+                    $response['done'] = true;
+                }else{
+                    $response['done'] = false;
+                    $response['data'] = "Problem in Update Room Check in status";
+                }
+            }else{
+                $response['done'] = false;
+                $response['data'] = "Problem in payment";
+            }
+
+        }else{
+            $response['done'] = false;
+            $response['data'] = "Please Enter Full Payment";
+        }
+    }else{
+        $response['done'] = false;
+        $response['data'] = "Error With Booking";
+    }
+    echo json_encode($response);
+}
+
 if (isset($_POST['add_employee'])) {
 
     $staff_type = $_POST['staff_type'];
@@ -243,6 +315,7 @@ if (isset($_POST['cutomerDetails'])) {
            $response['id_card_no'] = $customer_details['id_card_no'];
            $response['id_card_type_id'] = $id_type_name['id_card_type'];
            $response['address'] = $customer_details['address'];
+           $response['remaining_price'] = $customer_details['remaining_price'];
        } else {
            $response['done'] = false;
            $response['data'] = "DataBase Error";
@@ -273,7 +346,5 @@ if (isset($_POST['check_in_advance_payment'])) {
         $result = mysqli_query($connection, $query);
         $response['done'] = true;
         echo json_encode($response);
-
-
     }
 }

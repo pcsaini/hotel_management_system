@@ -170,6 +170,45 @@ $('#booking').submit(function () {
     return false;
 });
 
+$(document).on('click', '#cutomerDetails', function (e) {
+    e.preventDefault();
+
+    var room_id = $(this).data('id');
+    // alert(room_id);
+    console.log(room_id);
+
+    $.ajax({
+        type: 'post',
+        url: 'ajax.php',
+        dataType: 'JSON',
+        data: {
+            room_id: room_id,
+            cutomerDetails: ''
+        },
+        success: function (response) {
+
+
+            if (response.done == true) {
+
+
+                $('#customer_name').html(response.customer_name);
+                $('#customer_contact_no').html(response.contact_no);
+                $('#customer_email').html(response.email);
+                $('#customer_id_card_type').html(response.id_card_type_id);
+                $('#customer_id_card_number').html(response.id_card_no);
+                $('#customer_address').html(response.address);
+                $('#remaining_price').html(response.remaining_price);
+
+            } else {
+
+
+                $('.edit_response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
+            }
+        }
+    });
+
+});
+
 $(document).on('click', '#checkInRoom', function (e) {
     e.preventDefault();
 
@@ -202,6 +241,32 @@ $(document).on('click', '#checkInRoom', function (e) {
 
 });
 
+$('#advancePayment').submit(function () {
+
+    var booking_id = $('#getBookingID').val();
+    var advance_payment = $('#advance_payment').val();
+
+    $.ajax({
+        type: 'post',
+        url: 'ajax.php',
+        dataType: 'JSON',
+        data: {
+            booking_id: booking_id,
+            advance_payment: advance_payment,
+            check_in_room:''
+        },
+        success: function (response) {
+            if (response.done == true) {
+                $('#checkIn').modal('hide');
+                window.location.href = 'index.php?room_mang';
+            } else {
+                $('.payment-response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
+            }
+        }
+    });
+
+    return false;
+});
 
 $(document).on('click', '#checkOutRoom', function (e) {
     e.preventDefault();
@@ -225,7 +290,7 @@ $(document).on('click', '#checkOutRoom', function (e) {
                 $('#getCheckOut_n').html(response.check_out);
                 $('#getTotalPrice_n').html(response.total_price + '/-');
                 $('#getRemainingPrice_n').html(response.remaining_price + '/-');
-                $('#getBookingID_n').val(response.booking_id);
+                $('#getBookingId_n').val(response.booking_id);
                 $('#checkOut').modal('show');
             } else {
                 alert(response.data);
@@ -235,35 +300,34 @@ $(document).on('click', '#checkOutRoom', function (e) {
 
 });
 
-$('#advancePayment').submit(function () {
+$('#checkOutRoom_n').submit(function () {
+    var booking_id = $('#getBookingId_n').val();
+    var remaining_amount = $('#remaining_amount').val();
 
-    var room_no = $('#getRoomNo').text();
-    var room_id = $('#room_id').val();
-    var advance_payment = $('#advance_payment').val();
+    console.log(booking_id);
 
     $.ajax({
         type: 'post',
         url: 'ajax.php',
         dataType: 'JSON',
         data: {
-            room_no: room_no,
-            room_id: room_id,
-            advance_payment: advance_payment,
-            check_in_advance_payment:''
+            booking_id: booking_id,
+            remaining_amount: remaining_amount,
+            check_out_room:''
         },
         success: function (response) {
             if (response.done == true) {
                 $('#checkIn').modal('hide');
                 window.location.href = 'index.php?room_mang';
             } else {
-                $('.response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
+                $('.checkout-response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
             }
         }
     });
 
     return false;
-});
 
+});
 
 ///vishal code
 
@@ -381,43 +445,8 @@ $('#edit_employee').submit(function () {
 
     return false;
 });
-$(document).on('click', '#cutomerDetails', function (e) {
-    e.preventDefault();
-
-    var room_id = $(this).data('id');
-   // alert(room_id);
-    console.log(room_id);
-
-    $.ajax({
-        type: 'post',
-        url: 'ajax.php',
-        dataType: 'JSON',
-        data: {
-            room_id: room_id,
-            cutomerDetails: ''
-        },
-        success: function (response) {
 
 
-            if (response.done == true) {
-
-
-                $('#customer_name').html(response.customer_name);
-                $('#customer_contact_no').html(response.contact_no);
-                $('#customer_email').html(response.email);
-                $('#customer_id_card_type').html(response.id_card_type_id);
-                $('#customer_id_card_number').html(response.id_card_no);
-                $('#customer_address').html(response.address);
-
-            } else {
-
-
-                $('.edit_response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
-            }
-        }
-    });
-
-});
 
 
 
