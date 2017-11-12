@@ -4,39 +4,59 @@
  * User: vishal
  * Date: 10/23/17
  * Time: 1:45 PM
- */?>
+ */ ?>
 <!--
     you can substitue the span of reauth email for a input with the email and
     include the remember me checkbox
     -->
 <html>
 <head>
-<link rel="stylesheet" href="css/login.css"/>
-    <script src="js/login.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css"/>
 </head>
 <body>
 
 
 <div class="container">
     <div class="card card-container">
-        <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-        <p id="profile-name" class="profile-name-card"></p>
-        <form class="form-signin" action="functionmis.php" method="post">
-            <span id="reauth-email" class="reauth-email"></span>
-            <input type="text" id="inputEmail" name="username" class="form-control" placeholder="username" required autofocus>
-            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
-            <div id="remember" class="checkbox">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
+        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+        <p id="profile-name" class="profile-name-card">Login For Hotel Management</p>
+        <br>
+        <div class="result">
+            <?php
+            if (isset($_GET['empty'])){
+                echo '<div class="alert alert-danger">Enter Username or Password</div>';
+            }elseif (isset($_GET['loginE'])){
+                echo '<div class="alert alert-danger">Username or Password Don\'t Match</div>';
+            } ?>
+        </div>
+        <form class="form-signin" data-toggle="validator" action="ajax.php" method="post">
+            <div class="row">
+                <div class="form-group col-lg-12">
+                    <label></label>
+                    <input type="text" name="email" class="form-control" placeholder="Username/Email Address" required
+                           data-error="Enter Username or Email">
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label></label>
+                    <input type="password" name="password" class="form-control" placeholder="Password" required
+                           data-error="Enter Password">
+                    <div class="help-block with-errors"></div>
+                </div>
             </div>
-            <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="login" value="Sign in"/>
+
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="login">Login</button>
+
         </form><!-- /form -->
         <a href="#" class="forgot-password">
             Forgot the password?
         </a>
     </div><!-- /card-container -->
 </div><!-- /container -->
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/validator.min.js"></script>
 </body>
 </html>

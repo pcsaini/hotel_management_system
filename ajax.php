@@ -1,6 +1,26 @@
 <?php
 include_once 'db.php';
+session_start();
+if (isset($_POST['login'])){
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
+    if(!$email && !$password){
+        header('Location:login.php?empty');
+    }else{
+        $password = md5($password);
+        $query = "SELECT * FROM user WHERE username = '$email' OR email='$email' AND password='$password'";
+        $result = mysqli_query($connection, $query);
+        if (mysqli_num_rows($result) == 1){
+            $user = mysqli_fetch_assoc($result);
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['user_id'] = $user['id'];
+            header('Location:index.php?room_mang');
+        }else{
+            header('Location:login.php?loginE');
+        }
+    }
+}
 if (isset($_POST['add_room'])) {
     $room_type_id = $_POST['room_type_id'];
     $room_no = $_POST['room_no'];
@@ -141,6 +161,37 @@ if (isset($_POST['booking'])) {
     }
 
     echo json_encode($response);
+}
+
+if (isset($_POST['cutomerDetails'])) {
+    //$customer_result='';
+    $room_id = $_POST['room_id'];
+
+    if ($room_id != '') {
+        $sql = "SELECT * FROM room NATURAL JOIN room_type NATURAL JOIN booking NATURAL JOIN customer WHERE room_id = '$room_id'";
+        $result = mysqli_query($connection, $sql);
+        if ($result) {
+            $customer_details = mysqli_fetch_assoc($result);
+            $id_type = $customer_details['id_card_type_id'];
+            $query = "select id_card_type from id_card_type where id_card_type_id = '$id_type'";
+            $result = mysqli_query($connection, $query);
+            $id_type_name = mysqli_fetch_assoc($result);
+            $response['done'] = true;
+            $response['customer_id'] = $customer_details['customer_id'];
+            $response['customer_name'] = $customer_details['customer_name'];
+            $response['contact_no'] = $customer_details['contact_no'];
+            $response['email'] = $customer_details['email'];
+            $response['id_card_no'] = $customer_details['id_card_no'];
+            $response['id_card_type_id'] = $id_type_name['id_card_type'];
+            $response['address'] = $customer_details['address'];
+            $response['remaining_price'] = $customer_details['remaining_price'];
+        } else {
+            $response['done'] = false;
+            $response['data'] = "DataBase Error";
+        }
+
+        echo json_encode($response);
+    }
 }
 
 if (isset($_POST['booked_room'])) {
@@ -291,60 +342,4 @@ if (isset($_POST['add_employee'])) {
 //    }
 //
     echo json_encode($response);
-}
-
-
-if (isset($_POST['cutomerDetails'])) {
-    //$customer_result='';
-    $room_id = $_POST['room_id'];
-
-   if ($room_id != '') {
-       $sql = "SELECT * FROM room NATURAL JOIN room_type NATURAL JOIN booking NATURAL JOIN customer WHERE room_id = '$room_id'";
-       $result = mysqli_query($connection, $sql);
-       if ($result) {
-           $customer_details = mysqli_fetch_assoc($result);
-           $id_type = $customer_details['id_card_type_id'];
-           $query = "select id_card_type from id_card_type where id_card_type_id = '$id_type'";
-           $result = mysqli_query($connection, $query);
-           $id_type_name = mysqli_fetch_assoc($result);
-           $response['done'] = true;
-           $response['customer_id'] = $customer_details['customer_id'];
-           $response['customer_name'] = $customer_details['customer_name'];
-           $response['contact_no'] = $customer_details['contact_no'];
-           $response['email'] = $customer_details['email'];
-           $response['id_card_no'] = $customer_details['id_card_no'];
-           $response['id_card_type_id'] = $id_type_name['id_card_type'];
-           $response['address'] = $customer_details['address'];
-           $response['remaining_price'] = $customer_details['remaining_price'];
-       } else {
-           $response['done'] = false;
-           $response['data'] = "DataBase Error";
-       }
-
-       echo json_encode($response);
-   }
-}
-
-
-if (isset($_POST['check_in_advance_payment'])) {
-    $room_id = $_POST['room_id'];
-    $room_no = $_POST['room_no'];
-    $advance_payment = $_POST['advance_payment'];
-    $check_in = '12345678';
-
-    if ($room_no != '') {
-        $query = "UPDATE room SET check_in_status = '1' where room_id = '$room_id'";
-        $result = mysqli_query($connection, $query);
-
-        $query = "select * from booking where room_id = '$room_id' and check_in=''";
-        $result = mysqli_query($connection, $query);
-        $booking_details = mysqli_fetch_assoc($result);
-        $booking_id=$booking_details['booking_id'];
-        $remaining_price=$booking_details['total_price']-$advance_payment;
-
-        $query = "UPDATE booking SET remaining_price = '$remaining_price' ,	check_in ='$check_in' where booking_id = '$booking_id'";
-        $result = mysqli_query($connection, $query);
-        $response['done'] = true;
-        echo json_encode($response);
-    }
 }

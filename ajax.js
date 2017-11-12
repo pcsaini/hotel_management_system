@@ -111,7 +111,6 @@ function fetch_price(val) {
     });
 }
 
-
 $('#booking').submit(function () {
     var room_type_id = $('#room_type').val();
     var room_type = $("#room_type :selected").text();
@@ -329,8 +328,6 @@ $('#checkOutRoom_n').submit(function () {
 
 });
 
-///vishal code
-
 $('#add_employee').submit(function () {
 
     var staff_type = $('#staff_type').val();
@@ -385,11 +382,6 @@ $('#add_employee').submit(function () {
 
     return false;
 });
-
-
-
-
-///vishal code
 
 $('#edit_employee').submit(function () {
 
