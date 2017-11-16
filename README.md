@@ -8,5 +8,5 @@ MIS Project Based on Hotel Management System
 - Room Booking
 - Employee Management
 - Employee Salary Management
-- Employee History - Panding
+- Employee History
 - Complainent
