@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="form-group col-lg-6">
                                 <label>Staff</label>
-                                <select class="form-control" id="staff_type" required>
+                                <select class="form-control" id="staff_type" required data-error="Select Staff Type">
                                     <option selected disabled>Select Staff Type</option>
                                     <?php
                                     $query = "SELECT * FROM staff_type";
@@ -40,7 +40,7 @@
 
                             <div class="form-group col-lg-6">
                                 <label>Shift</label>
-                                <select class="form-control" id="shift" required>
+                                <select class="form-control" id="shift" required data-error="Select Shift Type">
                                     <option selected disabled>Select Staff Type</option>
                                     <?php
                                     $query = "SELECT * FROM shift";
@@ -57,19 +57,18 @@
 
                             <div class="form-group col-lg-6">
                                 <label>First Name</label>
-                                <input type="text" class="form-control" placeholder="First Name" id="first_name" required>
+                                <input type="text" class="form-control" placeholder="First Name" id="first_name" required data-error="Enter First Name">
                                 <div class="help-block with-errors"></div>
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>Last Name</label>
-                                <input type="text" class="form-control" placeholder="Last Name" id="last_name" required>
-                                <div class="help-block with-errors"></div>
+                                <input type="text" class="form-control" placeholder="Last Name" id="last_name">
                             </div>
 
                             <div class="form-group col-lg-6">
                                 <label>ID Card Type</label>
-                                <select class="form-control" id="id_card_id" required>
+                                <select class="form-control" id="id_card_id" required onchange="validId(this.value);">
                                     <option selected disabled>Select ID Card Type</option>
                                     <?php
                                     $query = "SELECT * FROM id_card_type";

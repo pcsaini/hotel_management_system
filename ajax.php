@@ -316,14 +316,22 @@ if (isset($_POST['add_employee'])) {
     $address = $_POST['address'];
     $salary = $_POST['salary'];
 
-    $customer_sql = "INSERT INTO staff (emp_name,staff_type_id,shift_id,id_card_type,id_card_no,address,contact_no,salary) VALUES ('$name','$staff_type','$shift','$id_card_id','$id_card_no','$address','$contact_no','$salary')";
-    $customer_result = mysqli_query($connection, $customer_sql);
-    if ($customer_result) {
-        $response['done'] = true;
-        $response['data'] = 'Successfully Booking';
-    } else {
+    if ($staff_type == '' && $shift == '' && $salary == ''){
         $response['done'] = false;
-        $response['data'] = "DataBase Error in status change";
+        $response['data'] = "Please Enter Carednalities";
+    }else{
+        $customer_sql = "INSERT INTO staff (emp_name,staff_type_id,shift_id,id_card_type,id_card_no,address,contact_no,salary) VALUES ('$name','$staff_type','$shift','$id_card_id','$id_card_no','$address','$contact_no','$salary')";
+        $customer_result = mysqli_query($connection, $customer_sql);
+        $emp_id = mysqli_insert_id($connection);
+        $insert = "INSERT INTO emp_history (emp_id,shift_id) VALUES ('$emp_id','$shift')";
+        $insert_result = mysqli_query($connection,$insert);
+        if ($customer_result && $insert_result) {
+            $response['done'] = true;
+            $response['data'] = 'Successfully Booking';
+        } else {
+            $response['done'] = false;
+            $response['data'] = "DataBase Error in status change";
+        }
     }
     echo json_encode($response);
 }
@@ -352,5 +360,24 @@ if (isset($_POST['resolve_complaint'])) {
         header("Location:index.php?complain&resolveSuccess");
     } else {
         header("Location:index.php?complain&resolveError");
+    }
+}
+
+
+if (isset($_POST['change_shift'])) {
+    $emp_id = $_POST['emp_id'];
+    $shift_id = $_POST['shift_id'];
+    $query = "UPDATE staff set shift_id = '$shift_id' WHERE emp_id='$emp_id'";
+    $result = mysqli_query($connection, $query);
+    $to_date = date("Y-m-d H:i:s");
+    $update = "UPDATE emp_history SET to_date = '$to_date' WHERE emp_id = '$emp_id' AND to_date IS NULL";
+    $update_result = mysqli_query($connection,$update);
+    $insert = "INSERT INTO emp_history (emp_id,shift_id) VALUES ('$emp_id','$shift_id')";
+    $insert_result = mysqli_query($connection,$insert);
+
+    if ($result && $insert_result && $update_result) {
+        header("Location:index.php?staff_mang&success");
+    } else {
+        header("Location:index.php?staff_mang&error");
     }
 }

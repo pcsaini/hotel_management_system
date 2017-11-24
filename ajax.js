@@ -95,6 +95,30 @@ function fetch_room(val) {
     });
 }
 
+function validId(val) {
+    if (val ==1){
+        document.getElementById('id_card_no').setAttribute('type','number');
+        document.getElementById('id_card_no').setAttribute('data-minlength','12');
+        document.getElementById('id_card_no').setAttribute('placeholder',"123212321232");
+        document.getElementById('id_card_no').setAttribute('data-error',"Enter 12 Digit Valid Aadhar Card No");
+    }else if(val ==2){
+        document.getElementById('id_card_no').setAttribute('type','text');
+        document.getElementById('id_card_no').setAttribute('data-minlength','11');
+        document.getElementById('id_card_no').setAttribute('placeholder',"ABS/1010101");
+        document.getElementById('id_card_no').setAttribute('data-error',"Enter 11 Character(include '/') Valid Voter ID Card No");
+    }else if(val ==3){
+        document.getElementById('id_card_no').setAttribute('type','text');
+        document.getElementById('id_card_no').setAttribute('data-minlength','10');
+        document.getElementById('id_card_no').setAttribute('placeholder',"GAHAH7878A");
+        document.getElementById('id_card_no').setAttribute('data-error',"Enter 10 Character Valid Pan Card No");
+    }else if(val == 4){
+        document.getElementById('id_card_no').setAttribute('type','text');
+        document.getElementById('id_card_no').setAttribute('data-minlength','16');
+        document.getElementById('id_card_no').setAttribute('placeholder',"RJ29 20170065432");
+        document.getElementById('id_card_no').setAttribute('data-error',"Enter 16 Character(include space) Valid Licence Number");
+    }
+}
+
 function fetch_price(val) {
     $.ajax({
         type: 'post',
@@ -328,7 +352,7 @@ $('#checkOutRoom_n').submit(function () {
 
 });
 
-$('#add_employee').submit(function () {
+$('#addEmployee').submit(function () {
 
     var staff_type = $('#staff_type').val();
     var shift = $('#shift').val();
@@ -340,7 +364,7 @@ $('#add_employee').submit(function () {
     var address = $('#address').val();
     var salary =$('#salary').val();
 
-    console.log(joining_date);
+    console.log(staff_type+shift);
     $.ajax({
         type: 'post',
         url: 'ajax.php',
@@ -360,7 +384,7 @@ $('#add_employee').submit(function () {
         },
         success: function (response) {
             if (response.done == true){
-                document.getElementById("add_employee").reset();
+                document.getElementById("addEmployee").reset();
                 $('.emp-response').html('<div class="alert bg-success alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>Employee Successfully Added</div>');
             }else{
                 $('.emp-response').html('<div class="alert bg-danger alert-dismissable" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em>' + response.data + '</div>');
@@ -432,6 +456,15 @@ $(document).on('click', '#complaint', function (e) {
     var complaint_id = $(this).data('id');
     console.log(complaint_id);
     $('#complaint_id').val(complaint_id);
+
+});
+
+$(document).on('click', '#change_shift', function (e) {
+    e.preventDefault();
+
+    var emp_id = $(this).data('id');
+    console.log(emp_id);
+    $('#getEmpId').val(emp_id);
 
 });
 

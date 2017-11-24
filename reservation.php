@@ -140,8 +140,7 @@ if (isset($_GET['room_id'])){
 
                             <div class="form-group col-lg-6">
                                 <label>Last Name</label>
-                                <input class="form-control" placeholder="Last Name" id="last_name" data-error="Enter Last Name" required>
-                                <div class="help-block with-errors"></div>
+                                <input class="form-control" placeholder="Last Name" id="last_name">
                             </div>
 
                             <div class="form-group col-lg-6">
@@ -158,7 +157,7 @@ if (isset($_GET['room_id'])){
 
                             <div class="form-group col-lg-6">
                                 <label>ID Card Type</label>
-                                <select class="form-control" id="id_card_id" data-error="Select ID Card Type" required>
+                                <select class="form-control" id="id_card_id" data-error="Select ID Card Type" required onchange="validId(this.value);">
                                     <option selected disabled>Select ID Card Type</option>
                                     <?php
                                     $query  = "SELECT * FROM id_card_type";
